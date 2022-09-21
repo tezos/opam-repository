@@ -1,0 +1,29 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.0" }
+  "tezos-base" { = version }
+  "tezos-protocol-013-PtJakart" { = version }
+  "tezos-client-013-PtJakart" { = version }
+  "tezos-client-base" { = version }
+  "tezos-client-base-unix" { = version }
+  "tezos-tx-rollup-013-PtJakart" { = version }
+]
+build: [
+  ["rm" "-r" "vendors"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+synopsis: "Tezos/Protocol: Transaction Rollup node binary"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/v123.7/tezos-123.7.tar.gz"
+  checksum: [
+    "sha256=56514eafb3574bf21946b7b99f6165664ed202e6b32de1f45a950293f6a13e9f"
+    "sha512=b1445d52030a95bdbac59481fa7a0d5441b9c67d3a02c1c8c5dcc98b37b988a4e4d27761ea4a16625f5723c27101b29bd96bd1df249a0c01ba4f7d98d9550332"
+  ]
+}

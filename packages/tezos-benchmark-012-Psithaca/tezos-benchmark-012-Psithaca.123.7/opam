@@ -1,0 +1,36 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.0" }
+  "tezos-stdlib" { = version }
+  "tezos-base" { = version }
+  "tezos-error-monad" { = version }
+  "tezos-micheline" { = version }
+  "tezos-micheline-rewriting" { = version }
+  "tezos-benchmark" { = version }
+  "tezos-benchmark-type-inference-012-Psithaca" { = version }
+  "tezos-protocol-012-Psithaca" { = version }
+  "tezos-crypto" { = version }
+  "hashcons"
+  "tezos-012-Psithaca-test-helpers" { = version }
+  "prbnmcn-stats" { = "0.0.4" }
+  "alcotest-lwt" { with-test & >= "1.5.0" }
+]
+build: [
+  ["rm" "-r" "vendors"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+synopsis: "Tezos/Protocol: library for writing benchmarks (protocol-specific part)"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/v123.7/tezos-123.7.tar.gz"
+  checksum: [
+    "sha256=56514eafb3574bf21946b7b99f6165664ed202e6b32de1f45a950293f6a13e9f"
+    "sha512=b1445d52030a95bdbac59481fa7a0d5441b9c67d3a02c1c8c5dcc98b37b988a4e4d27761ea4a16625f5723c27101b29bd96bd1df249a0c01ba4f7d98d9550332"
+  ]
+}
