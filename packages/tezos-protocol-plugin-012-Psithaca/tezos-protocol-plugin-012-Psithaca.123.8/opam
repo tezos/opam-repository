@@ -1,0 +1,25 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.0" }
+  "tezos-base" { = version }
+  "tezos-protocol-012-Psithaca" { = version }
+]
+build: [
+  ["rm" "-r" "vendors"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+synopsis: "Tezos/Protocol: protocol plugin"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/v123.8/tezos-123.8.tar.gz"
+  checksum: [
+    "sha256=845dfe8fef98ff74b18a6c869ada61d1da875a192826281b2b499192ff507424"
+    "sha512=3cf0f9cca45f0ccae7a41545578a3d046a885d78c11df4ba80e353ef303ac3090db632f6f01bbf93d2c224eaaf45cf45f2e92d8f7606d41e84413d9aa36c42af"
+  ]
+}
