@@ -1,0 +1,50 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.0" }
+  "ocaml" { >= "4.14" }
+  "ppx_expect"
+  "tezos-base" { = version }
+  "tezos-clic" { = version }
+  "tezos-shell-services" { = version }
+  "tezos-client-base" { = version }
+  "tezos-protocol-016-PtMumbai" { = version }
+  "tezos-mockup-registration" { = version }
+  "tezos-proxy" { = version }
+  "tezos-signer-backends" { = version }
+  "tezos-protocol-plugin-016-PtMumbai" { = version }
+  "tezos-rpc" { = version }
+  "tezos-smart-rollup-016-PtMumbai" { = version }
+  "uri" { >= "3.1.0" }
+  "tezos-stdlib-unix" { = version }
+  "tezos-protocol-environment" { = version }
+  "tezos-mockup" { = version }
+  "tezos-mockup-commands" { = version }
+  "tezos-client-commands" { = version }
+  "tezos-client-base-unix" { = version }
+  "tezos-crypto" { = version }
+  "tezt" { with-test & >= "3.1.0" }
+  "tezos-micheline" { with-test & = version }
+  "tezos-base-test-helpers" { with-test & = version }
+  "tezos-test-helpers" { with-test & = version }
+  "octez-alcotezt" { with-test & = version }
+  "qcheck-alcotest" { with-test & >= "0.20" }
+]
+build: [
+  ["rm" "-r" "vendors"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+synopsis: "Tezos/Protocol: protocol specific library for `tezos-client`"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/v17.0-rc1/tezos-17.0-rc1.tar.gz"
+  checksum: [
+    "sha256=e18298e46e1d2050f841c449b6b86d333b3dea4278360d197fcb91fdebd10137"
+    "sha512=862aea3ecf5c3aadc4f6bbb8e75c70aef4442126aa2d190c7cf550da5ec2d971afc94872ab5562e86b546e2243e75113bff4f12c1248ebe20bbc3012b3b744e3"
+  ]
+}
