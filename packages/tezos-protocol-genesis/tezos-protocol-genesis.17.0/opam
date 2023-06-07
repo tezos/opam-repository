@@ -1,0 +1,25 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.0" }
+  "ocaml" { >= "4.14" }
+  "tezos-protocol-environment" { = version }
+]
+build: [
+  ["rm" "-r" "vendors"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+synopsis: "Tezos/Protocol: genesis economic-protocol definition"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/v17.0/tezos-17.0.tar.gz"
+  checksum: [
+    "sha256=2f9280dfcfe49f9c86aa5ef324a8153c3f2b392ce54d00fa23749ca14296b7fe"
+    "sha512=43e77025b14a661a2783c9897007c49c29fc0cff7824bbc2e3542fdffd8aa8d5a9a0a67bbfed4281ef7c0ac8ff688f9ec8769918a79bf8a6a25f710cc207a718"
+  ]
+}
