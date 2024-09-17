@@ -1,0 +1,25 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.11.1" }
+  "ocaml" { >= "4.14" }
+  "octez-smart-rollup-wasm-debugger-lib" { = version }
+]
+build: [
+  ["rm" "-r" "vendors" "contrib"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+synopsis: "Tezos: Debugger for the smart rollups’ WASM kernels"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/octez-v21.0-rc1/octez-source-21.0-rc1.tar.gz"
+  checksum: [
+    "sha256=2963a27494a878ad0a6d0636330e92be74f0856f2608a200ff8ec614b00fa51b"
+    "sha512=d769ce19c8a36ee4ad89c377313ee5f7f0d7fa52285afdddc1ae08a3573bff0213c834aaa9721876bbb0ce924698995c444c4575091f48176b55efc43cede4c5"
+  ]
+}
