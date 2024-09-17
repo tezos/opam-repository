@@ -1,0 +1,51 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: [
+  "Tezos devteam"
+  "Thomas Gazagnaire"
+  "Thomas Leonard"
+  "Craig Ferguson"
+]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "ISC"
+depends: [
+  "dune" { >= "3.11.1" }
+  "ocaml" { >= "4.14" }
+  "ppx_repr" { >= "0.6.0" }
+  "logs"
+  "ppxlib"
+  "bigstringaf" { >= "0.5.0" }
+  "fmt" { >= "0.8.7" }
+  "astring"
+  "bheap" { >= "2.0.0" }
+  "digestif" { >= "0.9.0" }
+  "jsonm"
+  "lwt" { >= "5.7.0" }
+  "mtime" { >= "2.0.0" }
+  "ocamlgraph"
+  "uri" { >= "3.1.0" }
+  "uutf"
+  "repr"
+  "optint"
+  "index" { >= "1.6.0" & < "1.7.0" }
+  "cmdliner" { >= "1.1.0" }
+  "checkseum" { != "0.5.0" }
+  "rusage"
+  "zarith" { >= "1.13" & < "1.14" }
+  "octez-alcotezt" { = version }
+]
+build: [
+  ["rm" "-r" "vendors" "contrib"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+synopsis: "A package that contains some libraries used by the Octez suite"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/octez-v21.0-rc2/octez-source-21.0-rc2.tar.gz"
+  checksum: [
+    "sha256=ac53fde4bb00bb7a17db08647c08a6d7da35d75f9219bfac2194d2e4ed3d870d"
+    "sha512=dcc7342d1c568d4617a880008b4810af8e2366dd1c40607a51fb817def6db2f1a6151b93431db5a7f040abbc94dd6438c4e38b877166d02eb314934bd29824e0"
+  ]
+}
