@@ -1,0 +1,44 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.11.1" }
+  "ocaml" { >= "4.14" }
+  "ppx_expect"
+  "octez-libs" { = version }
+  "tezos-protocol-021-PtQenaB1" { = version }
+  "octez-shell-libs" { = version }
+  "uri" { >= "3.1.0" }
+  "tezt" { >= "4.1.0" & < "5.0.0" }
+  "tezt-tezos" { = version }
+  "qcheck-alcotest" { >= "0.20" }
+  "octez-proto-libs" { = version }
+  "octez-version" { = version }
+  "tezos-dal-node-services" { = version }
+  "lwt-canceler" { >= "0.3" & < "0.4" }
+  "lwt-exit"
+  "octez-protocol-compiler" { = version }
+  "tezos-dal-node-lib" { = version }
+  "tezos-dac-lib" { = version }
+  "tezos-dac-client-lib" { = version }
+  "octez-injector" { = version }
+  "octez-l2-libs" { = version }
+  "octez-alcotezt" { with-test & = version }
+]
+build: [
+  ["rm" "-r" "vendors" "contrib"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+synopsis: "Octez protocol 021-PtQenaB1 libraries"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/octez-v21.0-rc3/octez-source-21.0-rc3.tar.gz"
+  checksum: [
+    "sha256=90951850473a21009c634146becd486164354c78382e601a3ff141d728b76fa1"
+    "sha512=edc461da874695c8c5d2aca37c6d3469488994874142192bc673b03beabeda2db69d7eedc4ece81a8d3a1ae5b93f1b1d738c0a29d0a26b5bd0d045b62618b87b"
+  ]
+}
