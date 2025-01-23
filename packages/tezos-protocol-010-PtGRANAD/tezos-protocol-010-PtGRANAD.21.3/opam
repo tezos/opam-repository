@@ -1,0 +1,26 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.11.1" }
+  "ocaml" { >= "4.14" }
+  "octez-proto-libs" { = version }
+  "octez-shell-libs" { = version }
+]
+build: [
+  ["rm" "-r" "vendors" "contrib"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+synopsis: "Tezos protocol 010-PtGRANAD package"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/octez-v21.3/octez-source-21.3.tar.gz"
+  checksum: [
+    "sha256=a9b2ce397a53993310e08095341b3db4dcd5f5eee72868d33476deeb7499de10"
+    "sha512=7e337e4deb8d60062a1bad8d164ef522c7935eca5e822b23706a69f6e463f948516e23fc88933b749323a61d9773f9affcbe78351d688d325cddd00d82e6704a"
+  ]
+}
