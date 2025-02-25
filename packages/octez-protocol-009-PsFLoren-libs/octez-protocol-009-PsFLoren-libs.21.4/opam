@@ -1,0 +1,30 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.11.1" }
+  "ocaml" { >= "4.14" }
+  "octez-libs" { = version }
+  "tezos-protocol-009-PsFLoren" { = version }
+  "octez-shell-libs" { = version }
+  "ppx_expect"
+  "uri" { >= "3.1.0" }
+  "octez-proto-libs" { = version }
+]
+build: [
+  ["rm" "-r" "vendors" "contrib"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+synopsis: "Octez protocol 009-PsFLoren libraries"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/octez-v21.4/octez-source-21.4.tar.gz"
+  checksum: [
+    "sha256=f89d44e99c9846b96a6928491169799c6292cf800b0b19122d621855eefdaef8"
+    "sha512=ab7450a002f1728ec493e96b697e4ff437a03a702082ae2e0f9ae36103335accbb0e52f9fddeeb94fa0098588334cf5f6511b0857bb4946e6f082316bc40f93a"
+  ]
+}

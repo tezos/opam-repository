@@ -1,0 +1,44 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.11.1" }
+  "ocaml" { >= "4.14" }
+  "ppx_expect"
+  "octez-libs" { = version }
+  "tezos-protocol-alpha" { = version }
+  "octez-shell-libs" { = version }
+  "uri" { >= "3.1.0" }
+  "tezt" { >= "4.1.0" & < "5.0.0" }
+  "tezt-tezos" { = version }
+  "qcheck-alcotest" { >= "0.20" }
+  "octez-proto-libs" { = version }
+  "octez-version" { = version }
+  "tezos-dal-node-services" { = version }
+  "lwt-canceler" { >= "0.3" & < "0.4" }
+  "lwt-exit"
+  "octez-protocol-compiler" { = version }
+  "tezos-dal-node-lib" { = version }
+  "tezos-dac-lib" { = version }
+  "tezos-dac-client-lib" { = version }
+  "octez-injector" { = version }
+  "octez-l2-libs" { = version }
+  "octez-alcotezt" { with-test & = version }
+]
+build: [
+  ["rm" "-r" "vendors" "contrib"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+synopsis: "Octez protocol alpha libraries"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/octez-v21.4/octez-source-21.4.tar.gz"
+  checksum: [
+    "sha256=f89d44e99c9846b96a6928491169799c6292cf800b0b19122d621855eefdaef8"
+    "sha512=ab7450a002f1728ec493e96b697e4ff437a03a702082ae2e0f9ae36103335accbb0e52f9fddeeb94fa0098588334cf5f6511b0857bb4946e6f082316bc40f93a"
+  ]
+}

@@ -1,0 +1,42 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.11.1" }
+  "ocaml" { >= "4.14" }
+  "octez-libs" { = version }
+  "octez-shell-libs" { = version }
+  "octez-protocol-017-PtNairob-libs" { = version }
+  "tezos-protocol-017-PtNairob" { = version }
+  "tezos-dal-node-services" { = version }
+  "tezos-dal-node-lib" { = version }
+  "tezos-dac-lib" { = version }
+  "octez-l2-libs" { = version }
+  "octez-crawler" { = version }
+  "octez-internal-libs" { = version }
+  "aches" { >= "1.1.0" }
+  "aches-lwt" { >= "1.1.0" }
+  "octez-injector" { = version }
+  "octez-smart-rollup-node-lib" { = version }
+  "octez-version" { = version }
+]
+conflicts: [
+  "checkseum" { = "0.5.0" }
+]
+build: [
+  ["rm" "-r" "vendors" "contrib"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+synopsis: "Protocol specific (for 017-PtNairob) library for smart rollup node"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/octez-v21.4/octez-source-21.4.tar.gz"
+  checksum: [
+    "sha256=f89d44e99c9846b96a6928491169799c6292cf800b0b19122d621855eefdaef8"
+    "sha512=ab7450a002f1728ec493e96b697e4ff437a03a702082ae2e0f9ae36103335accbb0e52f9fddeeb94fa0098588334cf5f6511b0857bb4946e6f082316bc40f93a"
+  ]
+}
