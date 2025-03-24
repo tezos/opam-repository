@@ -1,0 +1,53 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam" "WebAssembly Authors"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "Apache-2.0"
+depends: [
+  "dune" { >= "3.11.1" }
+  "ocaml" { >= "4.14" }
+  "octez-libs" { = version }
+  "lwt" { >= "5.7.0" & < "5.9.0" }
+  "ppx_deriving"
+  "ctypes" { >= "0.18.0" }
+  "ctypes-foreign" { >= "0.18.0" }
+  "index" { >= "1.6.0" & < "1.7.0" }
+  "octez-internal-libs" { = version }
+  "aches-lwt" { >= "1.1.0" }
+  "camlzip" { >= "1.12" & < "1.13" }
+  "tar"
+  "tar-unix" { >= "2.0.1" & < "3.0.0" }
+  "octez-riscv-pvm" { = version }
+  "caqti"
+  "caqti-lwt" { >= "2.0.1" }
+  "caqti-driver-sqlite3" { >= "2.0.1" }
+  "yaml" { >= "3.1.0" }
+  "crunch" { >= "3.3.0" }
+  "re" { >= "1.10.0" }
+  "octez-performance-metrics" { = version }
+  "ppx_import"
+  "qcheck-alcotest" { >= "0.20" }
+  "octez-alcotezt" { = version }
+  "bls12-381" { = version }
+  "tezt" { >= "4.1.0" & < "5.0.0" }
+  "octez-rust-deps" { = version }
+]
+conflicts: [
+  "checkseum" { = "0.5.0" }
+]
+build: [
+  ["rm" "-r" "vendors" "contrib"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+available: os-family != "windows"
+synopsis: "Octez layer2 libraries"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/octez-v22.0-rc3/octez-source-22.0-rc3.tar.gz"
+  checksum: [
+    "sha256=7554393b027f7011885f15780a3d97b9f3ad48b4004ccd8e2b53efb92d31eef9"
+    "sha512=66ec02357d2de45469330e1839278957c21c383ced4b5f87455ca1ec5bb6422954a7da669581f87a5588e8f459945a023de2bf427e47b4adce8354e090fdb62a"
+  ]
+}

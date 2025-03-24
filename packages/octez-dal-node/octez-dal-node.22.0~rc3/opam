@@ -1,0 +1,45 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.11.1" }
+  "ocaml" { >= "4.14" }
+  "octez-rustzcash-deps" { = version }
+  "bls12-381" { = version }
+  "octez-libs" { = version }
+  "cmdliner" { >= "1.1.0" }
+  "octez-shell-libs" { = version }
+  "tezos-dal-node-lib" { = version }
+  "tezos-dal-node-services" { = version }
+  "octez-l2-libs" { = version }
+  "opentelemetry"
+  "octez-crawler" { = version }
+  "memtrace"
+  "octez-protocol-021-PsQuebec-libs" { = version }
+  "octez-protocol-022-PsRiotum-libs" { = version }
+]
+depopts: [
+  "octez-protocol-alpha-libs"
+]
+conflicts: [
+  "checkseum" { = "0.5.0" }
+  "octez-protocol-alpha-libs" { != version }
+]
+build: [
+  ["rm" "-r" "vendors" "contrib"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+available: os-family != "windows"
+synopsis: "Tezos: `octez-dal-node` binary"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/octez-v22.0-rc3/octez-source-22.0-rc3.tar.gz"
+  checksum: [
+    "sha256=7554393b027f7011885f15780a3d97b9f3ad48b4004ccd8e2b53efb92d31eef9"
+    "sha512=66ec02357d2de45469330e1839278957c21c383ced4b5f87455ca1ec5bb6422954a7da669581f87a5588e8f459945a023de2bf427e47b4adce8354e090fdb62a"
+  ]
+}

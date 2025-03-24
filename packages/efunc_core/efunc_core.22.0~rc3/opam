@@ -1,0 +1,32 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.11.1" }
+  "ocaml" { >= "4.14" }
+  "zarith" { >= "1.13" & < "1.14" }
+  "octez-libs"
+  "lwt" { >= "5.7.0" & < "5.9.0" }
+  "rope" { >= "0.6.2" }
+  "secp256k1-internal" { >= "0.4.0" }
+  "digestif" { >= "0.9.0" }
+  "fmt" { >= "0.8.7" }
+]
+build: [
+  ["rm" "-r" "vendors" "contrib"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+available: os-family != "windows"
+synopsis: "Efunc is a lib for crafting EVM compatible transactions and more"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/octez-v22.0-rc3/octez-source-22.0-rc3.tar.gz"
+  checksum: [
+    "sha256=7554393b027f7011885f15780a3d97b9f3ad48b4004ccd8e2b53efb92d31eef9"
+    "sha512=66ec02357d2de45469330e1839278957c21c383ced4b5f87455ca1ec5bb6422954a7da669581f87a5588e8f459945a023de2bf427e47b4adce8354e090fdb62a"
+  ]
+}
