@@ -1,0 +1,36 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.11.1" }
+  "ocaml" { >= "4.14" }
+  "ppx_expect"
+  "octez-libs" { = version }
+  "tezos-protocol-020-PsParisC" { = version }
+  "bls12-381" { with-test & = version }
+  "octez-rust-deps" { with-test & = version }
+  "octez-shell-libs" { = version }
+  "uri" { >= "3.1.0" }
+  "octez-rustzcash-deps" { with-test & = version }
+  "octez-proto-libs" { = version }
+  "octez-injector" { = version }
+  "octez-l2-libs" { = version }
+]
+build: [
+  ["rm" "-r" "vendors" "contrib"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+available: os-family != "windows"
+synopsis: "Octez protocol 020-PsParisC libraries"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/octez-v22.1/octez-source-22.1.tar.gz"
+  checksum: [
+    "sha256=50333dd67b37e1c1185dca8e91d9b256c05047215b6414cdc6765fd711b24d94"
+    "sha512=843520146f5edeb796bc93c5ae2a29c2bb582ba764cfca4e7167aed7b403e9e6a7afcb53d6a35c0a065ab58e506121ad854e926828f3e62ce2fa3d2aaed99d56"
+  ]
+}

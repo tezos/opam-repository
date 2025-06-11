@@ -1,0 +1,60 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.11.1" }
+  "ocaml" { >= "4.14" }
+  "octez-libs" { = version }
+  "lwt-watcher" { = "0.2" }
+  "lwt-canceler" { >= "0.3" & < "0.4" }
+  "ringo" { >= "1.1.0" }
+  "aches" { >= "1.1.0" }
+  "tezt" { >= "4.1.0" & < "5.0.0" }
+  "bls12-381" { with-test & = version }
+  "tezt-tezos" { with-test & = version }
+  "octez-alcotezt" { with-test & = version }
+  "astring" {with-test}
+  "octez-proto-libs" { = version }
+  "octez-protocol-compiler" { = version }
+  "lwt-exit"
+  "octez-version" { = version }
+  "aches-lwt" { >= "1.1.0" }
+  "index" { >= "1.6.0" & < "1.7.0" }
+  "camlzip" { >= "1.12" & < "1.13" }
+  "tar"
+  "tar-unix" { >= "2.0.1" & < "3.0.0" }
+  "ppx_expect"
+  "octez-rustzcash-deps" { with-test & = version }
+  "uri" { >= "3.1.0" }
+  "ocplib-endian"
+  "fmt" { >= "0.8.7" }
+  "tezos-benchmark" { = version }
+  "qcheck-alcotest" { with-test & >= "0.20" }
+  "qcheck-core" {with-test}
+  "lwt" { with-test & >= "5.7.0" & < "5.9.0" }
+]
+depopts: [
+  "ledgerwallet-tezos"
+]
+conflicts: [
+  "checkseum" { = "0.5.0" }
+  "ledgerwallet-tezos" { < "0.4.1" }
+]
+build: [
+  ["rm" "-r" "vendors" "contrib"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+available: os-family != "windows"
+synopsis: "Octez shell libraries"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/octez-v22.1/octez-source-22.1.tar.gz"
+  checksum: [
+    "sha256=50333dd67b37e1c1185dca8e91d9b256c05047215b6414cdc6765fd711b24d94"
+    "sha512=843520146f5edeb796bc93c5ae2a29c2bb582ba764cfca4e7167aed7b403e9e6a7afcb53d6a35c0a065ab58e506121ad854e926828f3e62ce2fa3d2aaed99d56"
+  ]
+}
