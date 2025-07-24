@@ -1,0 +1,30 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.11.1" }
+  "ocaml" { >= "4.14" }
+  "octez-proto-libs" { = version }
+  "octez-shell-libs" { = version }
+  "octez-libs" { = version }
+  "octez-rust-deps" { = version }
+  "bls12-381" { = version }
+]
+build: [
+  ["rm" "-r" "vendors" "contrib"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+available: os-family != "windows"
+synopsis: "Tezos protocol 012-Psithaca package"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/octez-v23.0-rc2/octez-source-23.0-rc2.tar.gz"
+  checksum: [
+    "sha256=85de0bf9b28f9c28f38f9532bf410df8e869244496393cc2e31b52e0d5794c8f"
+    "sha512=529aaab8c7076c45c84a845da6846408f7e540b1786d1595fc6d6967c936420296a5d0b92f4e4214e80da4ecd7efb7cf9023b56ef1470995b63868ff208c9d03"
+  ]
+}
