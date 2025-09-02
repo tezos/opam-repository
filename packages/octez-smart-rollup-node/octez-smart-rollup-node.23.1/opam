@@ -1,0 +1,49 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.11.1" }
+  "ocaml" { >= "4.14" }
+  "octez-rust-deps" { = version }
+  "bls12-381" { = version }
+  "octez-libs" { = version }
+  "octez-shell-libs" { = version }
+  "octez-l2-libs" { = version }
+  "octez-smart-rollup-node-lib" { = version }
+  "octez-smart-rollup-node-PsRiotum" { = version }
+  "octez-smart-rollup-node-PtSeouLo" { = version }
+]
+depopts: [
+  "octez-smart-rollup-node-PtNairob"
+  "octez-smart-rollup-node-Proxford"
+  "octez-smart-rollup-node-PtParisB"
+  "octez-smart-rollup-node-PsParisC"
+  "octez-smart-rollup-node-PsQuebec"
+  "octez-smart-rollup-node-alpha"
+]
+conflicts: [
+  "octez-smart-rollup-node-PtNairob" { != version }
+  "octez-smart-rollup-node-Proxford" { != version }
+  "octez-smart-rollup-node-PtParisB" { != version }
+  "octez-smart-rollup-node-PsParisC" { != version }
+  "octez-smart-rollup-node-PsQuebec" { != version }
+  "octez-smart-rollup-node-alpha" { != version }
+]
+build: [
+  ["rm" "-r" "vendors" "contrib"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+available: os-family != "windows"
+synopsis: "Octez: Smart rollup node"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/octez-v23.1/octez-source-23.1.tar.gz"
+  checksum: [
+    "sha256=3db674e9b7ed9783703e8413877a5dec15ea7c5a92d887bc64a8f421c0dcc0ca"
+    "sha512=579218aaf914179031bc115665e38200607a8166532b1642ed72e2232a849d75f673f92734dd81f7803937d0dd08ee35d10743a019f465c79549fb6c56daf47e"
+  ]
+}
