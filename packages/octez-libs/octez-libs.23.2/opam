@@ -28,7 +28,7 @@ depends: [
   "conduit-lwt-unix" { >= "7.1.0" }
   "lwt_ppx"
   "mtime" { >= "2.0.0" }
-  "opentelemetry"
+  "opentelemetry" { < "0.12" }
   "astring"
   "asetmap" { >= "0.8.1" }
   "re" { >= "1.10.0" }
@@ -83,7 +83,7 @@ depends: [
   "integers"
   "ctypes" { >= "0.18.0" }
   "tezos-sapling-parameters" { >= "1.1.0" }
-  "opentelemetry-lwt"
+  "opentelemetry-lwt" { < "0.12" }
   "octez-rustzcash-deps" { with-test & = version }
   "bigstring" {with-test}
   "tezt-bam" { with-test & >= "0.3" }
