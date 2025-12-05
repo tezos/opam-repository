@@ -8,15 +8,15 @@ homepage: "http://www.pcre.org/"
 dev-repo: "git+https://github.com/mmottl/pcre-ocaml.git"
 license: "BSD-3-Clause"
 build:
-  ["pkgconf" {os = "win32" & os-distribution = "cygwin"}
-   "--personality=i686-w64-mingw32" {os = "win32" & os-distribution = "cygwin" & host-arch-x86_32:installed}
-   "--personality=x86_64-w64-mingw32" {os = "win32" & os-distribution = "cygwin" & host-arch-x86_64:installed}
-   "pkg-config" {os != "win32" | os-distribution != "cygwin"}
+  ["pkgconf" {os = "win32" & os-distribution != "cygwinports"}
+   "--personality=i686-w64-mingw32" {os = "win32" & os-distribution != "cygwinports" & host-arch-x86_32:installed}
+   "--personality=x86_64-w64-mingw32" {os = "win32" & os-distribution != "cygwinports" & host-arch-x86_64:installed}
+   "pkg-config" {os != "win32" | os-distribution = "cygwinports"}
    "--print-errors" "--exists" "libpcre"]
 depends: [
  "conf-pkg-config" {build}
-  ("host-arch-x86_32" {os = "win32" & os-distribution = "cygwin"} & "conf-mingw-w64-pcre-i686" {os = "win32" & os-distribution = "cygwin"} |
-   "host-arch-x86_64" {os = "win32" & os-distribution = "cygwin"} & "conf-mingw-w64-pcre-x86_64" {os = "win32" & os-distribution = "cygwin"})
+  ("host-arch-x86_32" {os = "win32" & os-distribution != "cygwinports"} & "conf-mingw-w64-pcre-i686" {os = "win32" & os-distribution != "cygwinports"} |
+   "host-arch-x86_64" {os = "win32" & os-distribution != "cygwinports"} & "conf-mingw-w64-pcre-x86_64" {os = "win32" & os-distribution != "cygwinports"})
  ]
 bug-reports: "https://github.com/ocaml/opam-repository/issues"
 depexts: [
@@ -34,6 +34,11 @@ depexts: [
   ["pcre"] {os = "macos" & os-distribution = "homebrew"}
   ["pcre"] {os = "macos" & os-distribution = "macports"}
   ["pcre"] {os = "win32" & os-distribution = "cygwinports"}
+]
+post-messages: [
+  "On Debian 13 (Trixie), the libpcre3-dev package was removed from the code package repository. You can find it in third party repository DebianMultimedia or install it manually." { failure & os-family = "debian" }
+  "On Centos 10 the pcre-devel package was removed from the code package repository. You will need to install it manually." { failure & os-family = "centos" }
+  "On OpenSUSE Tumbleweed the pcre-devel package was removed from the code package repository. You will need to install it manually." { failure & os-family = "opensuse" }
 ]
 synopsis: "Virtual package relying on a libpcre system installation"
 description:

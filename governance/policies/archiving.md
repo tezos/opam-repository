@@ -1,5 +1,26 @@
 # opam Repository Archiving Policy
 
+## Summary
+
+To remain in the primary opam repository, a package version must:
+
+  - Have available sources
+  - Be installable (but not necessarily pass tests)
+    - on at least one supported platform
+    - with at least one recent compiler (currently, meaning 4.08+)
+  - Be maintained, according to the metadata of the latest version:
+    - `x-maintenance-intent: ["(latest)"]` means that only the latest version is maintained
+    - No `x-maintenance-intent` field means (for now) that all versions are maintained
+    - Other values are possible (see below for a full list)
+
+Package versions which don't meet these criteria and are not dependencies of
+anything meeting these criteria will be periodically archived, removing them
+from the primary opam repo.
+
+The full policy, including the precise criteria, the archiving process, and how
+package versions may be marked maintained, is detailed below.
+
+
 ## Terminology
 
 - The primary opam repository, (referred to here as the "primary repo") is located at [ocaml/opam-repository](https://github.com/ocaml/opam-repository). The primary repo is curated to ensure that compatible packages are co-installable on as many supported platforms as possible, and it is the default package repository.
@@ -43,7 +64,7 @@ At regular intervals, no less than every six months, the opam repo maintainers w
 - If the package version falls outside the package's maintenance intent, it will be archived.
 - The package version's maintainers will be notified of the intent to archive.
   - Maintainers will have two weeks to fix the version so that it satisfies the criteria or approve of the archiving.
-  - If two passes without hearing from the maintainers, the package will be marked as unmaintained and a call for a new maintainer will be submitted to the community via [discuss.ocaml.org under the opam-repository topic](https://discuss.ocaml.org/tag/opam-repository).
+  - If two weeks pass without hearing from the maintainers, the package will be marked as unmaintained and a call for a new maintainer will be submitted to the community via [discuss.ocaml.org under the opam-repository topic](https://discuss.ocaml.org/tag/opam-repository).
   - If a new maintainer steps forward, they will have 1 week to fix the package version.
   - Otherwise, the package will be archived.
 
@@ -60,13 +81,13 @@ When it has been decided that a set of package versions (aka "versions") should 
 - A PR will be made to remove the versions from the primary repo:
   - The removal PR should link to the corresponding archiving PR.
   - The commit message should have the title `Archive packages` and its body should contain the hash of the commit that adds the packages to the archive.
-- A announcement will be made on discuss.ocaml.org
+- An announcement will be made on discuss.ocaml.org
 - After waiting 1 week for feedback, the PRs will be merged.
 
 ### Specification of the `x-` fields used in the archiving process
 
 - `x-reason-for-archiving`:
-    - Allowed values: a list of containing one more of the following strings
+    - Allowed values: a list containing one or more of the following strings
       `ocaml-version`, `source-unavailable`, `maintenance-intent`, or
       `uninstallable`.
     - Meaning: Records the unmet [primary repo criteria](#inclusion-criteria)
@@ -100,6 +121,8 @@ When it has been decided that a set of package versions (aka "versions") should 
         - `["(none)"]` the maintainer will not maintain any version
         - `["1.3"]` the maintainer will maintain the latest  version of "1.3.Z"
         - `["2.(latest)"]` the maintainer will maintain the latest minor version specifically of version "2" of the package
+    - `dune-project` uses [`maintenance_intent`](https://dune.readthedocs.io/en/latest/reference/dune-project/maintenance_intent.html). Example:
+        - `(package ... (maintenance_intent "(latest)") ...)`
 - `x-maintained`:
     - Allowed values: `true` and `false`
     - Meaning:
