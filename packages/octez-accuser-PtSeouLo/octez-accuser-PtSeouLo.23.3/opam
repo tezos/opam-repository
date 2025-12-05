@@ -1,0 +1,31 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.11.1" }
+  "ocaml" { >= "4.14" }
+  "octez-rust-deps" { = version }
+  "bls12-381" { = version }
+  "octez-libs" { = version }
+  "tezos-protocol-023-PtSeouLo" { = version }
+  "octez-protocol-023-PtSeouLo-libs" { = version }
+  "octez-shell-libs" { = version }
+]
+build: [
+  ["rm" "-r" "vendors" "contrib"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+available: os-family != "windows"
+synopsis: "Tezos/Protocol: accuser binary"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/octez-v23.3/octez-source-23.3.tar.gz"
+  checksum: [
+    "sha256=cbcf46d300c986c3010942337a03750cc0582dd75a9bca4b17d752c5b968b0de"
+    "sha512=a24158e13f83be5bf16aacaa853f97803979dc43ee7704be1b1407b8b5fd535b26db39379f21ed2459b7230c5de97b7c36a8a16a67518abc157a56734ac78660"
+  ]
+}
